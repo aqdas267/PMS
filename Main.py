@@ -11,8 +11,8 @@ def menu():
     print("6. Quit")
     print("-----------------------\n")
 
-    userInput = int(input("Enter option: "))
-    return userInput
+    userTakeInput = int(input("Enter option: "))
+    return userTakeInput
 
 passwordAttempts = 0
 while(True):
@@ -69,11 +69,11 @@ while(True):
     if (choice == 2):
         site  = input("Enter site to retrive: ")
         if (site == "site"):
-            print("\n**INVALID SITE NAME**\n")
+            print("\n**SITE NOT FOUND**\n")
             continue
         try:
             if (passwordManager.readCsv(site) == None):
-                print("\n**NO SITE FOUND**\n")
+                print("\n**SITE NOT FOUND**\n")
                 continue
             else:
                 csvRow = passwordManager.readCsv(site)
@@ -88,10 +88,10 @@ while(True):
     if (choice == 3):
         site = input("Enter site to update password")
         if (site == "site"):
-            print("\n**INVALID SITE NAME**")
+            print("\n**SITE NOT FOUND**")
             continue
         elif (passwordManager.readCsv(site) == None):
-            print("\n**NO SITE FOUND**\n")
+            print("\n**SITE NOT FOUND**\n")
             continue
         else:
             passwordManager.updateusePass(site)
@@ -100,7 +100,7 @@ while(True):
     if (choice == 4):
         site = input("Enter site to delete: ")
         if (site == "site"):
-            print("\n**INVALID SITE NAME**\n")
+            print("\n**SITE NOT FOUND**\n")
             continue
         elif (passwordManager.readCsv(site) == None):
             print("\n**NO SITE FOUND**\n")
