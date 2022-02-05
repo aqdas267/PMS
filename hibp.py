@@ -5,7 +5,7 @@ import getpass
 
 def checkPass(pwd):
     pwd = pwd.strip()
-    hashedPass = hashlib.sha1(pwd.encode('utf-8')).hexdigest()
+    hashedPass = hashlib.sha3(pwd.encode('utf-8')).hexdigest()
     print(hashedPass)
     firstFive = hashedPass[:5]
     rest = hashedPass[5:].upper()
