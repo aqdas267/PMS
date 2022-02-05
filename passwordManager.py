@@ -8,7 +8,7 @@ from urllib import request
 CSV_FILE = "passwords.csv"
 MASTER_HASH_FILE = "master.txt"
 
-def masterHashComapare(password):
+def checkMasterHash(password):
     master = open(MASTER_HASH_FILE)
     masterLines = master.read().splitlines()
     token = masterLines[0]
@@ -18,11 +18,11 @@ def masterHashComapare(password):
     else:
         return False
 
-def paswordshahash(password):
+def checkPassHash(password):
     hashedpass = hashlib.sha1(password.encode())
     return hashedpass.hexdigest().upper()
 
-def checkhash(hashedpass):
+def checkHash(hashedpass):
     setpass=hashedpass[:5]
     r = request.get("https://api.pwnedpasswords.com/range/"+setpass)   
     return r.text
@@ -50,14 +50,14 @@ def createMasterHashFile(password):
     master.write("%s\n" % hash)
     master.close()
 
-def hashPassword(password, length):
+def hashPass(password, length):
     token = secrets.token_hex(64)
     hash = hashlib.sha512((token + password).encode('utf-8')).hexdigest()
     hash = hash[:length]
     return token,hash
 
 
-def checkingPass(passwd):
+def checkingPassPolicy(passwd):
       
     SpecialSym =['$', '@', '#', '%']
     val = True
@@ -88,7 +88,7 @@ def checkingPass(passwd):
     if val:
         return val
 
-def writeCsv(site, username, token, hash):
+def writePassCsv(site, username, token, hash):
     try:
         readCsv("site")
     except FileNotFoundError:
@@ -100,7 +100,7 @@ def writeCsv(site, username, token, hash):
             password_writer.writerow([site, username, token, hash])
 
 
-def readCsv(site):
+def readPassCsv(site):
     with open(CSV_FILE) as password_file:
         password_reader = csv.reader(password_file, delimiter=',')
         line_count = 0
@@ -137,7 +137,7 @@ def updatepassword(listupdate):
 
 
 
-def deleteCsv(site):
+def deletePassCsv(site):
     changes = list()
     with open(CSV_FILE) as password_file:
         password_reader = csv.reader(password_file, delimiter=',')
@@ -150,7 +150,7 @@ def deleteCsv(site):
         password_writer.writerows(changes)
 
 
-def listSites():
+def listPassSites():
     with open(CSV_FILE) as password_file:
         password_reader = csv.reader(password_file, delimiter=',')
         sites = list()
