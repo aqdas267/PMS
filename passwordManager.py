@@ -19,7 +19,7 @@ def checkMasterHash(password):
         return False
 
 def checkPassHash(password):
-    hashedpass = hashlib.sha1(password.encode())
+    hashedpass = hashlib.sha3(password.encode())
     return hashedpass.hexdigest().upper()
 
 def checkHash(hashedpass):
